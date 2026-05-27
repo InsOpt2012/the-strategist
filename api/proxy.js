@@ -1,10 +1,19 @@
-export default async function handler(req, res) {
+const fetch = (...args) => 
+  import('node-fetch').then(({default: fetch}) => fetch(...args));
+
+module.exports = async function handler(req, res) {
   res.setHeader("Access-Control-Allow-Origin", "*");
   res.setHeader("Access-Control-Allow-Methods", "POST, OPTIONS");
-  res.setHeader("Access-Control-Allow-Headers", "Content-Type, x-api-key, anthropic-version");
+  res.setHeader("Access-Control-Allow-Headers", 
+    "Content-Type, x-api-key, anthropic-version");
 
-  if (req.method === "OPTIONS") return res.status(200).end();
-  if (req.method !== "POST") return res.status(405).json({ error: "Method not allowed" });
+  if (req.method === "OPTIONS") {
+    return res.status(200).end();
+  }
+  
+  if (req.method !== "POST") {
+    return res.status(405).json({ error: "Method not allowed" });
+  }
 
   try {
     const response = await fetch("https://api.anthropic.com/v1/messages", {
@@ -12,7 +21,7 @@ export default async function handler(req, res) {
       headers: {
         "Content-Type": "application/json",
         "x-api-key": req.headers["x-api-key"],
-        "anthropic-version": req.headers["anthropic-version"] || "2023-06-01",
+        "anthropic-version": "2023-06-01",
       },
       body: JSON.stringify(req.body),
     });
@@ -21,4 +30,4 @@ export default async function handler(req, res) {
   } catch (err) {
     return res.status(500).json({ error: err.message });
   }
-}
+};
