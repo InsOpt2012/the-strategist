@@ -415,7 +415,7 @@ export default function TheStrategist() {
           {[
             ["1", "Go to", "console.anthropic.com", "https://console.anthropic.com"],
             ["2", "Create a free account (no credit card needed for $5 free credit)", null, null],
-            ["3", "Click "API Keys" in the left menu → "Create Key"", null, null],
+            ["3", "Click 'API Keys' in the left menu then 'Create Key'", null, null],,
             ["4", "Copy the key (starts with sk-ant-) and paste it below", null, null],
           ].map(([n, text, link, href]) => (
             <div key={n} style={{ display: "flex", gap: 14, marginBottom: 12, alignItems: "flex-start" }}>
